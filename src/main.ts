@@ -56,10 +56,10 @@ function playState(delta: number): void {
 // Controller is connected
 window.addEventListener("gamepadconnected", (e: any) => {
     const {index, id} = e.gamepad
-    console.log(`Gamepad connected at index ${index}, ${id}`)
+    console.log(`Controller connected at index ${index}, ${id}`)
 });
 
 window.addEventListener("gamepaddisconnected", (e: any) => {
     const { index, id } = e.gamepad
-    console.log(`Gamepad disconnected from index ${index}: ${id}`);
+    console.log(`Controller disconnected from index ${index}: ${id}`);
   });
