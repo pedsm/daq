@@ -1,4 +1,4 @@
-import { Sprite, Texture } from "pixi.js"
+import { Sprite, Texture, loader } from "pixi.js"
 import Character, { Stats } from "../Character"
 import {
     FLOOR,
@@ -18,15 +18,23 @@ export default class One implements Character {
             str: 10,
         }
         this.hp = 100
-        this.sprite = new Sprite(look)
+        this.sprite = new Sprite(loader.resources.oneIdle.texture)
         this.velY = 0
     }
 
     public move(delta: number, xStick: number, yStick: number) {
         const { sprite, stats } = this
         if (Math.abs(xStick) > 0.3) {
+            //Update Sprite
+            this.sprite.texture = Date.now() % 20 >= 10
+            ? loader.resources.oneWalk1.texture
+            : loader.resources.oneWalk2.texture
             sprite.x += delta * (stats.agi * xStick)
+            this.sprite.scale.x = xStick < 0 ? -1 : 1
+        } else {
+            this.sprite.texture = loader.resources.oneIdle.texture
         }
+
 
         // Accelerate but keep max vel
         if (this.velY < TERMINAL) {
