@@ -19,13 +19,15 @@ export default class One implements Character {
         }
         this.hp = 100
         this.sprite = new Sprite(loader.resources.oneIdle.texture)
+        this.sprite.anchor.x = 0.5
+        this.sprite.anchor.y = 0.5
         this.velY = 0
     }
 
     public move(delta: number, xStick: number, yStick: number) {
         const { sprite, stats } = this
         if (Math.abs(xStick) > 0.3) {
-            //Update Sprite
+            // Update Sprite
             this.sprite.texture = Date.now() % 20 >= 10
             ? loader.resources.oneWalk1.texture
             : loader.resources.oneWalk2.texture
