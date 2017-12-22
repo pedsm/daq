@@ -50,7 +50,14 @@ function loop(delta: number): void {
 
 function playState(delta: number): void {
     const gamepads = navigator.getGamepads()
-    player1.move(delta, gamepads[0].axes[0], gamepads[0].axes[1])
+    if (gamepads[0] != null) {
+        player1.move(delta, gamepads[0].axes[0], gamepads[0].axes[1])
+        if (gamepads[0].buttons[0].pressed) {
+            player1.jump()
+        }
+    } else {
+        console.warn("Player 1 has disconnected")
+    }
 }
 
 // Controller is connected

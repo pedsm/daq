@@ -6,6 +6,7 @@ export default interface Charater {
     stats: Stats,
     move(delta: number, xStick: number, yStick: number): void,
     collide(dmg: number, obj: Sprite): void,
+    jump(): void
 }
 
 export interface Stats {
