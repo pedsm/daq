@@ -1,0 +1,16 @@
+{
+  "name": "daq",
+  "version": "0.0.1",
+  "description": "Dont ask questions",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Pedro",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-loader": "^3.2.0",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0"
+  }
+}
