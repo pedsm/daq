@@ -42,7 +42,10 @@ export default class One implements Character {
     }
 
     public jump() {
-        this.velY = -30
+        const { sprite } = this
+        if (sprite.y === FLOOR) {
+            this.velY = -30
+        }
     }
 
     public collide(dmg: number, obj: Sprite) {

@@ -31,14 +31,14 @@ loader
     .load(setup)
 
 // Game Declarations
-let player1: Charater;
+const players: Charater[] = [];
 const state = 0
 
 // Game Setup
 function setup() {
-    player1 = new One(loader.resources.oneIdle.texture)
+    players.push(new One(loader.resources.oneIdle.texture))
 
-    app.stage.addChild(player1.sprite)
+    app.stage.addChild(players[0].sprite)
     app.ticker.add((delta) => loop(delta))
 }
 
@@ -51,9 +51,9 @@ function loop(delta: number): void {
 function playState(delta: number): void {
     const gamepads = navigator.getGamepads()
     if (gamepads[0] != null) {
-        player1.move(delta, gamepads[0].axes[0], gamepads[0].axes[1])
+        players[0].move(delta, gamepads[0].axes[0], gamepads[0].axes[1])
         if (gamepads[0].buttons[0].pressed) {
-            player1.jump()
+            players[0].jump()
         }
     } else {
         console.warn("Player 1 has disconnected")
