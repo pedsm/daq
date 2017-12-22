@@ -1,10 +1,10 @@
 import { Sprite } from "pixi.js"
 
-export default interface Charater{
+export default interface Charater {
     sprite: Sprite,
     hp: number,
     stats: Stats,
-    move(xStick: number, yStick: number): void,
+    move(delta: number, xStick: number, yStick: number): void,
     collide(dmg: number, obj: Sprite): void,
 }
 

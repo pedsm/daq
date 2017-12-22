@@ -49,5 +49,17 @@ function loop(delta: number): void {
 }
 
 function playState(delta: number): void {
-    player1.sprite.x = player1.sprite.x + delta
+    const gamepads = navigator.getGamepads()
+    player1.move(delta, gamepads[0].axes[0], gamepads[0].axes[1])
 }
+
+// Controller is connected
+window.addEventListener("gamepadconnected", (e: any) => {
+    const {index, id} = e.gamepad
+    console.log(`Gamepad connected at index ${index}, ${id}`)
+});
+
+window.addEventListener("gamepaddisconnected", (e: any) => {
+    const { index, id } = e.gamepad
+    console.log(`Gamepad disconnected from index ${index}: ${id}`);
+  });
