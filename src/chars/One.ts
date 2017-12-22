@@ -44,7 +44,7 @@ export default class One implements Character {
     public jump() {
         const { sprite } = this
         if (sprite.y === FLOOR) {
-            this.velY = -30
+            this.velY = -40
         }
     }
 

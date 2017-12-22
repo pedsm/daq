@@ -4,6 +4,7 @@ import {
     Sprite,
     utils,
 } from "pixi.js"
+import { assets } from "./assetsList"
 import Charater from "./Character";
 import One from "./chars/One"
 
@@ -26,9 +27,11 @@ const app = new Application({
 document.body.appendChild(app.view)
 
 // Loading textures to gpu
-loader
-    .add("oneIdle", "../assets/one/idle.png")
-    .load(setup)
+assets.forEach((asset) => {
+    const { character, name } = asset
+    loader.add(character + name, `../assets/${character}/${name}.png`)
+})
+loader.load(setup)
 
 // Game Declarations
 const players: Charater[] = [];
