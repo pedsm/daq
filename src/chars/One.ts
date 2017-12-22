@@ -2,27 +2,25 @@ import Character, { Stats } from "../Character"
 import { Sprite, Texture } from "pixi.js"
 
 export default class One implements Character {
-    sprite:Sprite
-    hp:Number
-    stats:Stats
-    constructor(look:Texture) {
+    private sprite: Sprite
+    private hp: number
+    private stats: Stats
+    constructor(look: Texture) {
         this.stats = {
-            str: 5,
             agi: 5,
-            def: 5
+            def: 5,
+            str: 5,
         }
         this.hp = 100
-        this.sprite = new Sprite(
-            look
-        )
+        this.sprite = new Sprite(look)
     }
 
-    move(xStick:Number, yStick:Number) {
-
+    public move(delta: number, xStick: number, yStick: number) {
+        const {sprite, stats} = this
+        sprite.x += delta * (stats.agi * xStick)
     }
 
-    collide(dmg:Number, obj:Sprite) {
-
+    public collide(dmg: number, obj: Sprite) {
+        console.log("Collision with One")
     }
-
 }

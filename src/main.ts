@@ -1,26 +1,26 @@
 import {
+    Application,
+    loader,
     Sprite,
     utils,
-    loader,
-    Application,
 } from "pixi.js"
-import One from "./chars/One"
 import Charater from "./Character";
+import One from "./chars/One"
 
-//Const definitions
+// Const definitions
 const PLAY = 0
 
 // Web Gl testing
 let type = "WebGL"
-if(!utils.isWebGLSupported()) {
+if (!utils.isWebGLSupported()) {
     type = "canvas"
 }
 utils.sayHello(`Running on ${type}`)
 
-//Initial setup
-let app = new Application({
+// Initial setup
+const app = new Application({
+    height: 600,
     width: 800,
-    height:600
 })
 
 document.body.appendChild(app.view)
@@ -30,24 +30,24 @@ loader
     .add("oneIdle", "../assets/one/idle.png")
     .load(setup)
 
-//Game Declarations
-let player1:Charater;
-let state = 0
+// Game Declarations
+let player1: Charater;
+const state = 0
 
-//Game Setup
+// Game Setup
 function setup() {
     player1 = new One(loader.resources.oneIdle.texture)
 
     app.stage.addChild(player1.sprite)
-    app.ticker.add(delta => loop(delta))
+    app.ticker.add((delta) => loop(delta))
 }
 
-function loop(delta:number):void {
-    if(state === PLAY) {
+function loop(delta: number): void {
+    if (state === PLAY) {
         playState(delta)
     }
 }
-function playState(delta:number):void {
-    player1.sprite.x = player1.sprite.x + delta
 
+function playState(delta: number): void {
+    player1.sprite.x = player1.sprite.x + delta
 }
