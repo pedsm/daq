@@ -63,8 +63,8 @@ function playState(delta: number): void {
             if (gamepads[i].buttons[0].pressed) {
                 players[i].jump()
             }
-            // B to attack
-            if (gamepads[i].buttons[1].pressed) {
+            // B || Rt to attack
+            if (gamepads[i].buttons[1].pressed || gamepads[i].buttons[7].pressed) {
                 const proj = players[i].basicAttack(gamepads[i].axes[2], gamepads[i].axes[3])
                 if (proj != null) {
                     projectiles.push(proj)
