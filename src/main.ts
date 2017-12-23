@@ -53,13 +53,14 @@ function loop(delta: number): void {
 
 function playState(delta: number): void {
     const gamepads = navigator.getGamepads()
-    if (gamepads[0] != null) {
-        players[0].move(delta, gamepads[0].axes[0], gamepads[0].axes[1])
-        if (gamepads[0].buttons[0].pressed) {
-            players[0].jump()
+    // Interface with all players with controllers
+    for (let i = 0; i < gamepads.length; i++) {
+        if (gamepads[i] != null) {
+            players[i].move(delta, gamepads[i].axes[0], gamepads[i].axes[1])
+            if (gamepads[i].buttons[0].pressed) {
+                players[i].jump()
+            }
         }
-    } else {
-        console.warn("Player 1 has disconnected")
     }
 }
 

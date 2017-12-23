@@ -30,6 +30,11 @@ export default class One implements Character {
 
     public move(delta: number, xStick: number, yStick: number) {
         const { sprite, stats } = this
+        // Jump if stick is up
+        console.log(yStick)
+        if (yStick < -0.9) {
+            this.jump()
+        }
         if (Math.abs(xStick) > 0.3) {
             // Update Sprite
             this.sprite.texture = Date.now() % 20 >= 10
