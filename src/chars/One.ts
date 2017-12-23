@@ -17,6 +17,8 @@ export default class One implements Character {
     hp: number
     stats: Stats
     velY: number
+    lastShot: number
+    direction: number
     constructor(look: Texture) {
         this.stats = {
             agi: 10,
@@ -28,6 +30,8 @@ export default class One implements Character {
         this.sprite.anchor.x = 0.5
         this.sprite.anchor.y = 0.5
         this.velY = 0
+        this.direction = 1
+        this.lastShot = 0
     }
 
     public move(delta: number, xStick: number, yStick: number) {
@@ -44,7 +48,8 @@ export default class One implements Character {
             // Move x
             sprite.x += delta * (stats.agi * xStick)
             // Flip when needed
-            this.sprite.scale.x = xStick < 0 ? -1 : 1
+            this.direction = xStick < 0 ? -1 : 1
+            this.sprite.scale.x = this.direction
         } else {
             this.sprite.texture = loader.resources.oneIdle.texture
         }
@@ -62,9 +67,16 @@ export default class One implements Character {
         }
     }
 
-    public basicAttack(xStick: number, yStick: number): Projectile {
-        const velocity = new Vector(xStick, yStick, 10)
-        console.log(velocity)
+    public basicAttack(xStick: number, yStick: number): Projectile | null {
+        if (Date.now() - this.lastShot < 1000) {
+            return null
+        }
+        this.lastShot = Date.now()
+        let velocity = new Vector(xStick, yStick, 10)
+        if(xStick < 0.5) {
+            console.log("corrected")
+            velocity = new Vector(this.direction, 0, 10)
+        }
         const proj = new Sword(
             this.sprite.x,
             this.sprite.y,
