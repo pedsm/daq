@@ -73,7 +73,7 @@ export default class One implements Character {
         }
         this.lastShot = Date.now()
         let velocity = new Vector(xStick, yStick, 10)
-        if(xStick < 0.5) {
+        if (xStick < 0.5) {
             console.log("corrected")
             velocity = new Vector(this.direction, 0, 10)
         }
