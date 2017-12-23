@@ -31,7 +31,6 @@ export default class One implements Character {
     public move(delta: number, xStick: number, yStick: number) {
         const { sprite, stats } = this
         // Jump if stick is up
-        console.log(yStick)
         if (yStick < -0.9) {
             this.jump()
         }
