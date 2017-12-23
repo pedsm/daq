@@ -8,8 +8,10 @@ import {
     FLOOR,
     GRAV,
     TERMINAL,
+    Vector,
 } from "../physics"
-
+import Sword from "../proj/Sword"
+import Projectile from "../Projectile";
 export default class One implements Character {
     sprite: Sprite
     hp: number
@@ -58,6 +60,17 @@ export default class One implements Character {
         if (sprite.y > FLOOR) {
             sprite.y = FLOOR
         }
+    }
+
+    public basicAttack(xStick: number, yStick: number): Projectile {
+        const velocity = new Vector(xStick, yStick, 10)
+        console.log(velocity)
+        const proj = new Sword(
+            this.sprite.x,
+            this.sprite.y,
+            velocity,
+        )
+        return proj
     }
 
     public jump() {

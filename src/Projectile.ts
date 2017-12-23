@@ -3,10 +3,10 @@ import { Vector } from "./physics"
 
 export default interface Projectile {
     sprite: Sprite,
-    dmg: number
+    dmg: number,
     hp: number,
     vel: Vector,
-    update(delta),
-    collide(),
-    destroy(),
+    update(delta: number): void,
+    collide(): void,
+    destroy(): void,
 }

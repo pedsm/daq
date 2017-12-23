@@ -8,11 +8,10 @@ export class Vector {
     x: number
     y: number
     angle: number
-    cosntructor(x: number, y: number, vel: number) {
-        const { sin, cos } = Math
-        this.angle = Math.atan2(this.y, this.x)
-        this.x = vel * cos(this.angle)
-        this.y = vel * sin(this.angle)
+    constructor(x: number, y: number, vel: number) {
+        this.angle = Math.atan2(y, x)
+        this.x = vel * Math.cos(this.angle)
+        this.y = vel * Math.sin(this.angle)
     }
 
     magnitude(): number {

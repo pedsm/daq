@@ -5,6 +5,6 @@ export declare class Vector {
     x: number;
     y: number;
     angle: number;
-    cosntructor(x: number, y: number, vel: number): void;
+    constructor(x: number, y: number, vel: number);
     magnitude(): number;
 }

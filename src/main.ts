@@ -7,6 +7,7 @@ import {
 import { assets } from "./assetsList"
 import Charater from "./Character";
 import One from "./chars/One"
+import Projectile from "./Projectile";
 
 // Const definitions
 const PLAY = 0
@@ -34,7 +35,8 @@ assets.forEach((asset) => {
 loader.load(setup)
 
 // Game Declarations
-const players: Charater[] = [];
+const players: Charater[] = []
+const projectiles: Projectile[] = []
 const state = 0
 
 // Game Setup
@@ -57,11 +59,23 @@ function playState(delta: number): void {
     for (let i = 0; i < gamepads.length; i++) {
         if (gamepads[i] != null) {
             players[i].move(delta, gamepads[i].axes[0], gamepads[i].axes[1])
+            // A to jump
             if (gamepads[i].buttons[0].pressed) {
                 players[i].jump()
             }
+            // B to attack
+            if (gamepads[i].buttons[1].pressed) {
+                const proj = players[i].basicAttack(gamepads[i].axes[2], gamepads[i].axes[3])
+                if (proj != null) {
+                    projectiles.push(proj)
+                    app.stage.addChild(proj.sprite)
+                }
+            }
         }
     }
+    projectiles.forEach((projectile) => {
+        projectile.update(delta)
+    })
 }
 
 // Controller is connected
