@@ -19,5 +19,4 @@ export class Vector {
         const { sqrt, pow } = Math
         return sqrt(pow(this.x, 2) + pow(this.y, 2))
     }
-
 }

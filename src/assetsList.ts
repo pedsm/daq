@@ -4,6 +4,7 @@ export const assets: AssetSet[] = [
    {character: "one", name: "Stand"},
    {character: "one", name: "Walk1"},
    {character: "one", name: "Walk2"},
+   {character: "one", name: "Sword"},
 ]
 
 export interface AssetSet {
