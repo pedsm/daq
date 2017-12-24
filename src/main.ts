@@ -84,6 +84,9 @@ function playState(delta: number): void {
                     }
                     projs.forEach((proj) => {
                         projectiles.push(proj)
+                        if (proj.sprite == null) {
+                            return
+                        }
                         app.stage.addChild(proj.sprite)
                         proj.sprite.addChild(proj.hitbox.drawable)
                     })

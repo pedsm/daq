@@ -3,7 +3,7 @@ import HitBox from "./HitBox"
 import { Vector } from "./physics"
 
 export default interface Projectile {
-    sprite: Sprite,
+    sprite: Sprite | null,
     dmg: number,
     hp: number,
     vel: Vector,

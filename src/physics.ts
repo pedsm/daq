@@ -1,4 +1,7 @@
-import { Sprite, Rectangle } from "pixi.js";
+import {
+    Rectangle,
+    Sprite,
+} from "pixi.js";
 
 export const GRAV = 3
 export const TERMINAL = 30
