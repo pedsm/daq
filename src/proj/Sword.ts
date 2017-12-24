@@ -7,7 +7,7 @@ import { Vector } from "../physics";
 import Projectile from "../Projectile";
 
 export default class Sword implements Projectile {
-    sprite: Sprite
+    sprite: Sprite | null
     dmg: number
     hp: number
     vel: Vector
@@ -29,6 +29,9 @@ export default class Sword implements Projectile {
 
     update(delta: number) {
         const { sprite, vel } = this
+        if (sprite == null) {
+            return
+        }
         sprite.x += vel.x
         sprite.y += vel.y
         sprite.rotation = (Date.now() - this.createdAt) / 100
@@ -39,6 +42,10 @@ export default class Sword implements Projectile {
     }
 
     destroy() {
+        if (this.sprite == null) {
+            return
+        }
         this.sprite.destroy()
+        this.sprite = null
     }
 }

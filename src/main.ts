@@ -91,7 +91,10 @@ function playState(delta: number): void {
             }
         }
     }
-    projectiles = projectiles.filter((projectile) => {
+    projectiles = projectiles.filter((projectile: Projectile) => {
+        if (projectile.sprite == null) {
+            return false
+        }
         projectile.update(delta)
         // Off-screen garbage collection
         const bounds = projectile.hitbox.drawable.getBounds()
@@ -113,6 +116,7 @@ function playState(delta: number): void {
             const projBound = projectile.hitbox.getBounds()
             if (collisionTest(playerBounds, projBound)) {
                 player.collide(projectile.hp)
+                projectile.destroy()
             }
         })
         return true
