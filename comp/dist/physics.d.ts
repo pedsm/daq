@@ -1,4 +1,4 @@
-export declare const GRAV = 5;
+export declare const GRAV = 3;
 export declare const TERMINAL = 30;
 export declare const FLOOR = 500;
 export declare class Vector {

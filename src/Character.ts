@@ -1,10 +1,11 @@
-import { Sprite } from "pixi.js"
+import { Sprite, Texture } from "pixi.js"
 import Projectile from "./Projectile";
 
 export default interface Charater {
     sprite: Sprite,
     hp: number,
     stats: Stats,
+    index: number,
     move(delta: number, xStick: number, yStick: number): void,
     collide(dmg: number, obj: Sprite): void,
     jump(): void

@@ -1,5 +1,6 @@
 import {
     Application,
+    Graphics,
     loader,
     Sprite,
     utils,
@@ -8,6 +9,7 @@ import { assets } from "./assetsList"
 import Charater from "./Character";
 import One from "./chars/One"
 import Projectile from "./Projectile";
+import HitBox from "./HitBox";
 
 // Const definitions
 const PLAY = 0
@@ -21,8 +23,8 @@ utils.sayHello(`Running on ${type}`)
 
 // Initial setup
 const app = new Application({
-    height: 600,
-    width: 800,
+    height: window.innerHeight,
+    width: window.innerWidth,
 })
 
 document.body.appendChild(app.view)
@@ -35,15 +37,23 @@ assets.forEach((asset) => {
 loader.load(setup)
 
 // Game Declarations
+const DEBUG = true;
 const players: Charater[] = []
 const projectiles: Projectile[] = []
+const hitboxes: HitBox[] = []
 const state = 0
 
 // Game Setup
 function setup() {
-    players.push(new One(loader.resources.oneIdle.texture))
+    players.push(new One(loader.resources.oneIdle.texture, 0))
+    players.push(new One(loader.resources.oneIdle.texture, 1))
 
-    app.stage.addChild(players[0].sprite)
+    players[1].sprite.x = 400
+    players[1].sprite.y = 400
+
+    players.forEach((player) => {
+        app.stage.addChild(player.sprite)
+    })
     app.ticker.add((delta) => loop(delta))
 }
 
@@ -68,7 +78,9 @@ function playState(delta: number): void {
                 const proj = players[i].basicAttack(gamepads[i].axes[2], gamepads[i].axes[3])
                 if (proj != null) {
                     projectiles.push(proj)
+                    hitboxes.push(proj.hitbox)
                     app.stage.addChild(proj.sprite)
+                    app.stage.addChild(proj.hitbox.drawable)
                 }
             }
         }
@@ -76,11 +88,17 @@ function playState(delta: number): void {
     projectiles.forEach((projectile) => {
         projectile.update(delta)
     })
+    // Debug zone
+    if (DEBUG) {
+        projectiles.forEach((projectile) => {
+            projectile.hitbox.update(projectile.sprite.getBounds())
+        })
+    }
 }
 
 // Controller is connected
 window.addEventListener("gamepadconnected", (e: any) => {
-    const {index, id} = e.gamepad
+    const { index, id } = e.gamepad
     console.log(`Controller connected at index ${index}, ${id}`)
 });
 

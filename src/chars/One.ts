@@ -19,13 +19,15 @@ export default class One implements Character {
     velY: number
     lastShot: number
     direction: number
-    constructor(look: Texture) {
+    index: number
+    constructor(look: Texture, index: number) {
         this.stats = {
             agi: 10,
             def: 10,
             str: 10,
         }
         this.hp = 100
+        this.index = index
         this.sprite = new Sprite(loader.resources.oneIdle.texture)
         this.sprite.anchor.x = 0.5
         this.sprite.anchor.y = 0.5
@@ -73,7 +75,8 @@ export default class One implements Character {
         }
         this.lastShot = Date.now()
         let velocity = new Vector(xStick, yStick, 10)
-        if (xStick < 0.5) {
+        const { abs } = Math
+        if (abs(xStick) + abs(yStick) < 0.5) {
             console.log("corrected")
             velocity = new Vector(this.direction, 0, 10)
         }
@@ -81,6 +84,7 @@ export default class One implements Character {
             this.sprite.x,
             this.sprite.y,
             velocity,
+            this.index,
         )
         return proj
     }

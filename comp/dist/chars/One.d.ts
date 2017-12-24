@@ -8,7 +8,8 @@ export default class One implements Character {
     velY: number;
     lastShot: number;
     direction: number;
-    constructor(look: Texture);
+    index: number;
+    constructor(look: Texture, index: number);
     move(delta: number, xStick: number, yStick: number): void;
     basicAttack(xStick: number, yStick: number): Projectile | null;
     jump(): void;

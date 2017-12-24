@@ -4,6 +4,7 @@ import {
 } from "pixi.js";
 import { Vector } from "../physics";
 import Projectile from "../Projectile";
+import HitBox from "../HitBox";
 
 export default class Sword implements Projectile {
     sprite: Sprite
@@ -11,7 +12,9 @@ export default class Sword implements Projectile {
     hp: number
     vel: Vector
     createdAt: number
-    constructor(x: number, y: number, vel: Vector) {
+    hitbox: HitBox
+    creator: number
+    constructor(x: number, y: number, vel: Vector, creator: number) {
         this.sprite = new Sprite(loader.resources.oneSword.texture)
         this.sprite.anchor.x = 0.5
         this.sprite.anchor.y = 0.5
@@ -20,6 +23,8 @@ export default class Sword implements Projectile {
         this.sprite.x = x
         this.sprite.y = y
         this.createdAt = Date.now()
+        this.creator = creator
+        this.hitbox = new HitBox(this.sprite.getBounds(), creator)
     }
 
     update(delta: number) {
