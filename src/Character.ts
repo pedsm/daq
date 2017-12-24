@@ -9,7 +9,7 @@ export default interface Charater {
     move(delta: number, xStick: number, yStick: number): void,
     collide(dmg: number, obj: Sprite): void,
     jump(): void
-    basicAttack(xStick: number, yStick: number): Projectile | null
+    basicAttack(xStick: number, yStick: number): Projectile | Projectile[] | null
 }
 
 export interface Stats {

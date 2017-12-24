@@ -8,8 +8,8 @@ import {
 import { assets } from "./assetsList"
 import Charater from "./Character";
 import One from "./chars/One"
-import Projectile from "./Projectile";
 import HitBox from "./HitBox";
+import Projectile from "./Projectile";
 
 // Const definitions
 const PLAY = 0
@@ -75,12 +75,17 @@ function playState(delta: number): void {
             }
             // B || Rt to attack
             if (gamepads[i].buttons[1].pressed || gamepads[i].buttons[7].pressed) {
-                const proj = players[i].basicAttack(gamepads[i].axes[2], gamepads[i].axes[3])
-                if (proj != null) {
-                    projectiles.push(proj)
-                    hitboxes.push(proj.hitbox)
-                    app.stage.addChild(proj.sprite)
-                    app.stage.addChild(proj.hitbox.drawable)
+                let projs = players[i].basicAttack(gamepads[i].axes[2], gamepads[i].axes[3])
+                if (projs != null) {
+                    if(!Array.isArray(projs)) {
+                        projs = [projs]
+                    }
+                    projs.forEach((proj) => {
+                        projectiles.push(proj)
+                        hitboxes.push(proj.hitbox)
+                        app.stage.addChild(proj.sprite)
+                        app.stage.addChild(proj.hitbox.drawable)
+                    })
                 }
             }
         }
