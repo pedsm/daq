@@ -4,6 +4,7 @@ import {
     Texture,
 } from "pixi.js"
 import Character, { Stats } from "../Character"
+import HitBox from "../HitBox";
 import {
     FLOOR,
     GRAV,
@@ -12,6 +13,7 @@ import {
 } from "../physics"
 import Sword from "../proj/Sword"
 import Projectile from "../Projectile";
+
 export default class One implements Character {
     sprite: Sprite
     hp: number
@@ -19,6 +21,7 @@ export default class One implements Character {
     velY: number
     lastShot: number
     direction: number
+    hitbox: HitBox
     index: number
     constructor(look: Texture, index: number) {
         this.stats = {
@@ -34,6 +37,8 @@ export default class One implements Character {
         this.velY = 0
         this.direction = 1
         this.lastShot = 0
+        this.hitbox = new HitBox(this.sprite.getBounds(), this.index)
+        this.sprite.addChild(this.hitbox.drawable)
     }
 
     public move(delta: number, xStick: number, yStick: number) {
@@ -70,7 +75,7 @@ export default class One implements Character {
     }
 
     public basicAttack(xStick: number, yStick: number): Projectile | null {
-        if (Date.now() - this.lastShot < 1000) {
+        if (Date.now() - this.lastShot < 500) {
             return null
         }
         this.lastShot = Date.now()

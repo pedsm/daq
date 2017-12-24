@@ -1,4 +1,5 @@
 import { Sprite, Texture } from "pixi.js"
+import HitBox from "./HitBox";
 import Projectile from "./Projectile";
 
 export default interface Charater {
@@ -6,6 +7,7 @@ export default interface Charater {
     hp: number,
     stats: Stats,
     index: number,
+    hitbox: HitBox,
     move(delta: number, xStick: number, yStick: number): void,
     collide(dmg: number, obj: Sprite): void,
     jump(): void

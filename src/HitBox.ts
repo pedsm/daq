@@ -13,7 +13,7 @@ export default class HitBox {
         this.box =  coords
         this.creator =  creator
         this.drawable = new Graphics()
-        this.drawable.lineStyle(5, 0xFF0000);
+        this.drawable.lineStyle(1, colorList[creator]);
         if (DEBUG) {
             this.drawable.drawRect(
                 -coords.width / 2,
@@ -24,3 +24,10 @@ export default class HitBox {
         }
     }
 }
+
+const colorList = [
+    0xFF0000,
+    0x00FF00,
+    0x0000FF,
+    0xFF00FF,
+]
