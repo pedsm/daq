@@ -2,9 +2,9 @@ import {
     loader,
     Sprite,
 } from "pixi.js";
+import HitBox from "../HitBox";
 import { Vector } from "../physics";
 import Projectile from "../Projectile";
-import HitBox from "../HitBox";
 
 export default class Sword implements Projectile {
     sprite: Sprite

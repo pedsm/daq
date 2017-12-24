@@ -77,14 +77,13 @@ function playState(delta: number): void {
             if (gamepads[i].buttons[1].pressed || gamepads[i].buttons[7].pressed) {
                 let projs = players[i].basicAttack(gamepads[i].axes[2], gamepads[i].axes[3])
                 if (projs != null) {
-                    if(!Array.isArray(projs)) {
+                    if (!Array.isArray(projs)) {
                         projs = [projs]
                     }
                     projs.forEach((proj) => {
                         projectiles.push(proj)
-                        hitboxes.push(proj.hitbox)
                         app.stage.addChild(proj.sprite)
-                        app.stage.addChild(proj.hitbox.drawable)
+                        proj.sprite.addChild(proj.hitbox.drawable)
                     })
                 }
             }
@@ -95,9 +94,9 @@ function playState(delta: number): void {
     })
     // Debug zone
     if (DEBUG) {
-        projectiles.forEach((projectile) => {
-            projectile.hitbox.update(projectile.sprite.getBounds())
-        })
+        // projectiles.forEach((projectile) => {
+            // projectile.hitbox.update(projectile.sprite.getBounds())
+        // })
     }
 }
 

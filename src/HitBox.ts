@@ -1,7 +1,9 @@
 import {
     Graphics,
+    Point,
     Rectangle,
-} from "pixi.js";
+} from "pixi.js"
+import { DEBUG } from "./debug"
 
 export default class HitBox {
     box: Rectangle
@@ -12,12 +14,13 @@ export default class HitBox {
         this.creator =  creator
         this.drawable = new Graphics()
         this.drawable.lineStyle(5, 0xFF0000);
-        this.drawable.drawRect(coords.x, coords.y, coords.width, coords.height)
-    }
-    update(coords: Rectangle) {
-        this.drawable.x = coords.x
-        this.drawable.y = coords.y
-        this.drawable.width = coords.width
-        this.drawable.height = coords.height
+        if (DEBUG) {
+            this.drawable.drawRect(
+                -coords.width / 2,
+                -coords.height / 2,
+                coords.width,
+                coords.height,
+            )
+        }
     }
 }
