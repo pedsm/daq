@@ -1,6 +1,6 @@
 {
   "name": "daq",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Dont ask questions",
   "main": "index.js",
   "scripts": {
