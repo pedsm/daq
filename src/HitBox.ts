@@ -7,11 +7,11 @@ import { DEBUG } from "./debug"
 
 export default class HitBox {
     box: Rectangle
-    creator: number
+    index: number
     drawable: Graphics
     constructor(coords: Rectangle, creator: number) {
         this.box =  coords
-        this.creator =  creator
+        this.index =  creator
         this.drawable = new Graphics()
         this.drawable.lineStyle(1, colorList[creator]);
         if (DEBUG) {
@@ -22,6 +22,9 @@ export default class HitBox {
                 coords.height,
             )
         }
+    }
+    getBounds(): Rectangle {
+        return this.drawable.getBounds()
     }
 }
 

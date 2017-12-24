@@ -1,4 +1,4 @@
-import { Sprite } from "pixi.js";
+import { Sprite, Rectangle } from "pixi.js";
 
 export const GRAV = 3
 export const TERMINAL = 30
@@ -18,4 +18,11 @@ export class Vector {
         const { sqrt, pow } = Math
         return sqrt(pow(this.x, 2) + pow(this.y, 2))
     }
+}
+
+export function collisionTest(one: Rectangle, two: Rectangle): boolean {
+    return one.x + (one.width / 2) > two.x - (two.width / 2) &&
+    one.x - (one.width / 2) < two.x + (two.width / 2) &&
+    one.y + (one.height / 2) > two.y - (two.height / 2) &&
+    one.y - (one.height / 2) < two.y + (two.height / 2);
 }

@@ -78,12 +78,13 @@ export default class One implements Character {
         if (Date.now() - this.lastShot < 500) {
             return null
         }
+        const shotSpeed = 10
         this.lastShot = Date.now()
-        let velocity = new Vector(xStick, yStick, 10)
+        let velocity = new Vector(xStick, yStick, shotSpeed)
         const { abs } = Math
         if (abs(xStick) + abs(yStick) < 0.5) {
             console.log("corrected")
-            velocity = new Vector(this.direction, 0, 10)
+            velocity = new Vector(this.direction, 0, shotSpeed)
         }
         const proj = new Sword(
             this.sprite.x,
@@ -101,7 +102,7 @@ export default class One implements Character {
         }
     }
 
-    public collide(dmg: number, obj: Sprite) {
+    public collide(dmg: number) {
         console.log("Collision with One")
     }
 }

@@ -9,6 +9,7 @@ import { assets } from "./assetsList"
 import Charater from "./Character";
 import One from "./chars/One"
 import HitBox from "./HitBox";
+import { collisionTest } from "./physics"
 import Projectile from "./Projectile";
 
 // Const definitions
@@ -92,6 +93,7 @@ function playState(delta: number): void {
     }
     projectiles = projectiles.filter((projectile) => {
         projectile.update(delta)
+        // Off-screen garbage collection
         const bounds = projectile.hitbox.drawable.getBounds()
         if (
             bounds.x > WIDTH ||
@@ -103,6 +105,16 @@ function playState(delta: number): void {
             console.log("destroyed")
             return false
         }
+        players.forEach((player) => {
+            if (player.index === projectile.hitbox.index) {
+                return
+            }
+            const playerBounds = player.hitbox.getBounds()
+            const projBound = projectile.hitbox.getBounds()
+            if (collisionTest(playerBounds, projBound)) {
+                player.collide(projectile.hp)
+            }
+        })
         return true
     })
     // Debug zone

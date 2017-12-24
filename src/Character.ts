@@ -9,7 +9,7 @@ export default interface Charater {
     index: number,
     hitbox: HitBox,
     move(delta: number, xStick: number, yStick: number): void,
-    collide(dmg: number, obj: Sprite): void,
+    collide(dmg: number): void,
     jump(): void
     basicAttack(xStick: number, yStick: number): Projectile | Projectile[] | null
 }
