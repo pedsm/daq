@@ -22,9 +22,11 @@ if (!utils.isWebGLSupported()) {
 utils.sayHello(`Running on ${type}`)
 
 // Initial setup
+const HEIGHT = window.innerHeight
+const WIDTH = window.innerWidth
 const app = new Application({
-    height: window.innerHeight,
-    width: window.innerWidth,
+    height: HEIGHT,
+    width: WIDTH,
 })
 
 document.body.appendChild(app.view)
@@ -39,8 +41,7 @@ loader.load(setup)
 // Game Declarations
 const DEBUG = true;
 const players: Charater[] = []
-const projectiles: Projectile[] = []
-const hitboxes: HitBox[] = []
+let projectiles: Projectile[] = []
 const state = 0
 
 // Game Setup
@@ -89,8 +90,20 @@ function playState(delta: number): void {
             }
         }
     }
-    projectiles.forEach((projectile) => {
+    projectiles = projectiles.filter((projectile) => {
         projectile.update(delta)
+        const bounds = projectile.hitbox.drawable.getBounds()
+        if (
+            bounds.x > WIDTH ||
+            bounds.x < 0 - bounds.width ||
+            bounds.y > HEIGHT ||
+            bounds.y < 0 - bounds.height
+        ) {
+            projectile.sprite.destroy()
+            console.log("destroyed")
+            return false
+        }
+        return true
     })
     // Debug zone
     if (DEBUG) {
