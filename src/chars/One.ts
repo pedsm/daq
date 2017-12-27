@@ -103,6 +103,7 @@ export default class One implements Character {
     }
 
     public collide(dmg: number) {
-        console.log("Collision with One")
+        this.hp -= dmg
+        console.log(`Hit did ${dmg} new hp = ${this.hp}`)
     }
 }
