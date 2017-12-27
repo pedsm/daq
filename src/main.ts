@@ -141,4 +141,4 @@ window.addEventListener("gamepadconnected", (e: any) => {
 window.addEventListener("gamepaddisconnected", (e: any) => {
     const { index, id } = e.gamepad
     console.log(`Controller disconnected from index ${index}: ${id}`);
-  });
+});
