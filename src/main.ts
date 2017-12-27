@@ -44,7 +44,8 @@ loader.load(setup)
 // Game Declarations
 const DEBUG = true;
 const players: Charater[] = []
-const hpBars: Graphics[] = []
+const hpBars: Sprite[] = []
+const hpBarsBack: Sprite[] = []
 let projectiles: Projectile[] = []
 const state = 0
 
@@ -57,19 +58,16 @@ function setup() {
     app.stage.addChild(bg)
     // Set up players and hp bars
     players.push(new One(loader.resources.oneIdle.texture, 0))
-    hpBars.push(new Graphics())
+    hpBars.push(new Sprite(loader.resources.uiFullbar.texture))
+    hpBarsBack.push(new Sprite(loader.resources.uiEmptybar.texture))
     players.push(new One(loader.resources.oneIdle.texture, 1))
-    hpBars.push(new Graphics())
-    hpBars.forEach((hpBar) => {
-        hpBar.lineStyle(1, 0x00FF00)
-        hpBar.beginFill(0x00FF00)
-        hpBar.drawRect(-50, -80, 100, 20)
-        app.stage.addChild(hpBar)
-    })
 
     players[1].sprite.x = 400
     players[1].sprite.y = 400
 
+    hpBars.forEach((hpBar) => {
+        app.stage.addChild(hpBar)
+    })
     players.forEach((player) => {
         app.stage.addChild(player.sprite)
     })
@@ -110,9 +108,10 @@ function playState(delta: number): void {
                 }
             }
             // Draw hp Bars
-            hpBars[i].x = players[i].sprite.x
-            hpBars[i].y = players[i].sprite.y
+            hpBars[i].x = players[i].sprite.x - (hpBars[i].width / 2)
+            hpBars[i].y = players[i].sprite.y - players[i].sprite.width
             hpBars[i].width = players[i].hp
+            hpBars[i].height = 20
         }
     }
     projectiles = projectiles.filter((projectile: Projectile) => {
