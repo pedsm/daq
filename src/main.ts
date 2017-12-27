@@ -24,9 +24,10 @@ if (!utils.isWebGLSupported()) {
 utils.sayHello(`Running on ${type}`)
 
 // Initial setup
-const HEIGHT = window.innerHeight
-const WIDTH = window.innerWidth
+const HEIGHT = window.innerHeight - 5
+const WIDTH = window.innerWidth - 5
 const app = new Application({
+    autoResize: true,
     height: HEIGHT,
     width: WIDTH,
 })
@@ -49,6 +50,12 @@ const state = 0
 
 // Game Setup
 function setup() {
+    const bg: Sprite = new Sprite(loader.resources.uiBg.texture);
+    const ratio = bg.height / bg.width
+    bg.width = WIDTH
+    bg.height = WIDTH * ratio
+    app.stage.addChild(bg)
+    // Set up players and hp bars
     players.push(new One(loader.resources.oneIdle.texture, 0))
     hpBars.push(new Graphics())
     players.push(new One(loader.resources.oneIdle.texture, 1))

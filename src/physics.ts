@@ -5,7 +5,7 @@ import {
 
 export const GRAV = 3
 export const TERMINAL = 30
-export const FLOOR = 500
+export const FLOOR = 600
 
 export class Vector {
     x: number
