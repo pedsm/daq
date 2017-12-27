@@ -10,7 +10,8 @@ import Charater from "./Character";
 import One from "./chars/One"
 import HitBox from "./HitBox";
 import { collisionTest } from "./physics"
-import Projectile from "./Projectile";
+import Projectile from "./Projectile"
+import { drawHpBar } from "./ui"
 
 // Const definitions
 const PLAY = 0
@@ -42,13 +43,22 @@ loader.load(setup)
 // Game Declarations
 const DEBUG = true;
 const players: Charater[] = []
+const hpBars: Graphics[] = []
 let projectiles: Projectile[] = []
 const state = 0
 
 // Game Setup
 function setup() {
     players.push(new One(loader.resources.oneIdle.texture, 0))
+    hpBars.push(new Graphics())
     players.push(new One(loader.resources.oneIdle.texture, 1))
+    hpBars.push(new Graphics())
+    hpBars.forEach((hpBar) => {
+        hpBar.lineStyle(1, 0x00FF00)
+        hpBar.beginFill(0x00FF00)
+        hpBar.drawRect(-50, -80, 100, 20)
+        app.stage.addChild(hpBar)
+    })
 
     players[1].sprite.x = 400
     players[1].sprite.y = 400
@@ -92,6 +102,10 @@ function playState(delta: number): void {
                     })
                 }
             }
+            // Draw hp Bars
+            hpBars[i].x = players[i].sprite.x
+            hpBars[i].y = players[i].sprite.y
+            hpBars[i].width = players[i].hp
         }
     }
     projectiles = projectiles.filter((projectile: Projectile) => {
@@ -108,7 +122,7 @@ function playState(delta: number): void {
             bounds.y < 0 - bounds.height
         ) {
             projectile.sprite.destroy()
-            console.log("destroyed")
+            console.log("Projectile destroyed")
             return false
         }
         players.forEach((player) => {
